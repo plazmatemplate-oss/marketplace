@@ -9,6 +9,8 @@ import { MOCK_PRODUCT_DETAIL } from "@/lib/data";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import type { Product } from "@/types/api";
 import { useAddToCart } from "@/hooks/useCart";
+import { useProducts } from "@/hooks/useProducts";
+import { getImageUrl } from "@/lib/utils";
 import { toast } from "@/lib/toast";
 
 const TAGS = [
@@ -58,7 +60,26 @@ export default function ProductSidebar({ product }: Readonly<ProductSidebarProps
   const router = useRouter();
   const addToCartMutation = useAddToCart();
 
-  const priceDisplay = product?.price !== undefined 
+  const categorySlug = typeof product?.category === "object"
+    ? product.category.slug || product.category._id
+    : product?.category;
+
+  const subcategorySlug = typeof product?.subcategory === "object"
+    ? product.subcategory.slug || product.subcategory._id
+    : product?.subcategory;
+
+  const categoryParam = subcategorySlug || categorySlug;
+
+  const { data: apiProducts, isLoading: isProductsLoading } = useProducts({
+    category: categoryParam,
+    pageSize: 4,
+  });
+
+  const displayProducts = (apiProducts || [])
+    .filter((p) => p._id !== product?._id && p.slug !== product?.slug)
+    .slice(0, 3);
+
+  const priceDisplay = product?.price !== undefined
     ? (typeof product.price === "number" ? `€${product.price.toFixed(2)}` : product.price)
     : MOCK_PRODUCT_DETAIL.price;
 
@@ -87,7 +108,7 @@ export default function ProductSidebar({ product }: Readonly<ProductSidebarProps
 
   return (
     <div className="flex flex-col gap-6">
-      
+
       <Card>
         <CardHeader className="flex flex-row justify-between items-start border-b border-theme-gray-100 pb-4">
           <CardTitle className="text-theme-gray-800 font-bold text-[16px]">{MOCK_PRODUCT_DETAIL.license.type}</CardTitle>
@@ -125,7 +146,7 @@ export default function ProductSidebar({ product }: Readonly<ProductSidebarProps
             </button>
           </div>
 
-          <ReviewDialog 
+          <ReviewDialog
             productId={product?._id}
             productTitle={product?.title}
             productImage={product?.images?.[0]}
@@ -170,27 +191,43 @@ export default function ProductSidebar({ product }: Readonly<ProductSidebarProps
         </CardContent>
       </Card>
 
-      <div className="flex flex-col gap-4 mt-2">
-        <h3 className="text-[16px] font-bold text-theme-gray-900">You might also like</h3>
-        {MOCK_PRODUCT_DETAIL.relatedProducts.map((p) => (
-          <Card key={p.id} className="p-3 flex gap-3 hover:shadow-md transition-shadow">
-            <div className="relative w-20 h-20 bg-theme-gray-50 rounded shrink-0 overflow-hidden">
-              <Image src={p.image} alt={p.title} fill unoptimized className="object-cover" />
-            </div>
-            <div className="flex flex-col justify-between flex-1 min-w-0">
-              <Link href="/modules" className="text-[13px] font-semibold text-theme-gray-800 hover:text-primary line-clamp-2 leading-tight">
-                {p.title}
-              </Link>
-              <div className="flex items-center justify-between mt-2">
-                <span className="text-[14px] font-bold text-theme-gray-900">{p.price}</span>
-                <Link href="/modules" className="text-theme-gray-400 hover:text-primary">
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      {isProductsLoading ? (
+        <div className="flex flex-col gap-4 mt-2">
+          <h3 className="text-[16px] font-bold text-theme-gray-900">You might also like</h3>
+          <div className="flex justify-center py-6">
+            <Loader2 className="w-6 h-6 animate-spin text-theme-gray-400" />
+          </div>
+        </div>
+      ) : displayProducts.length > 0 ? (
+        <div className="flex flex-col gap-4 mt-2">
+          <h3 className="text-[16px] font-bold text-theme-gray-900">You might also like</h3>
+          {displayProducts.map((p) => {
+            const productSlug = p.slug || p._id;
+            const href = productSlug ? `/product/${productSlug}` : "#";
+            const imageUrl = p.images?.[0] ? getImageUrl(p.images[0]) : getImageUrl("");
+            const formattedPrice = typeof p.price === "number" ? `€${p.price.toFixed(2)}` : (p.price || "€0.00");
+
+            return (
+              <Card key={p._id || p.slug} className="p-3 flex gap-3 hover:shadow-md transition-shadow">
+                <div className="relative w-20 h-20 bg-theme-gray-50 rounded shrink-0 overflow-hidden">
+                  <Image src={imageUrl} alt={p.title} fill unoptimized className="object-cover" />
+                </div>
+                <div className="flex flex-col justify-between flex-1 min-w-0">
+                  <Link href={href} className="text-[13px] font-semibold text-theme-gray-800 hover:text-primary line-clamp-2 leading-tight">
+                    {p.title}
+                  </Link>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-[14px] font-bold text-theme-gray-900">{formattedPrice}</span>
+                    <Link href={href} className="text-theme-gray-400 hover:text-primary">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      ) : null}
 
     </div>
   );
