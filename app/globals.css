@@ -1,0 +1,177 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-theme-pink: var(--theme-pink);
+  --color-theme-light: var(--theme-light);
+  --color-theme-dark-blue: var(--theme-dark-blue);
+  --color-theme-dark-blue-hover: var(--theme-dark-blue-hover);
+  --color-theme-yellow: var(--theme-yellow);
+  --color-theme-yellow-hover: var(--theme-yellow-hover);
+  --color-theme-purple: var(--theme-purple);
+  --color-theme-success: var(--theme-success);
+  --color-theme-error: var(--theme-error);
+  --color-theme-light-blue: var(--theme-light-blue);
+  --color-theme-blue: var(--theme-blue);
+  --color-theme-light-gray: var(--theme-light-gray);
+  --color-social-facebook: var(--social-facebook);
+  --color-social-twitter: var(--social-twitter);
+  --color-social-pinterest: var(--social-pinterest);
+  --color-social-instagram: var(--social-instagram);
+  --color-social-linkedin: var(--social-linkedin);
+  --color-social-vimeo: var(--social-vimeo);
+  --color-theme-gray-50: var(--theme-gray-50);
+  --color-theme-gray-100: var(--theme-gray-100);
+  --color-theme-gray-200: var(--theme-gray-200);
+  --color-theme-gray-300: var(--theme-gray-300);
+  --color-theme-gray-400: var(--theme-gray-400);
+  --color-theme-gray-500: var(--theme-gray-500);
+  --color-theme-gray-600: var(--theme-gray-600);
+  --color-theme-gray-700: var(--theme-gray-700);
+  --color-theme-gray-800: var(--theme-gray-800);
+  --color-theme-gray-900: var(--theme-gray-900);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --theme-background-gradiant: linear-gradient(
+    90deg,
+    rgba(254, 0, 90, 1) 0%,
+    rgba(38, 58, 213, 1) 100%
+  );
+  --primary: #ff4c4c;
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: #102f49;
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: #ff9a52;
+  --accent-foreground: oklch(0.985 0 0);
+  --theme-pink: #ed1c64;
+  --theme-light: #f8fbff;
+  --theme-dark-blue: #0f2d5c;
+  --theme-dark-blue-hover: #1a3a6c;
+  --theme-yellow: #ffb600;
+  --theme-yellow-hover: #e5a400;
+  --theme-purple: #9370DB;
+  --theme-success: #5cb85c;
+  --theme-error: #ef4444;
+  --theme-light-blue: #eaf4fc;
+  --theme-blue: #4285f4;
+  --theme-light-gray: #f8f9fa;
+  --social-facebook: #1877f2;
+  --social-twitter: #1da1f2;
+  --social-pinterest: #e60023;
+  --social-instagram: #e1306c;
+  --social-linkedin: #0077b5;
+  --social-vimeo: #f26522;
+  --theme-gray-50: #f9fafb;
+  --theme-gray-100: #f3f4f6;
+  --theme-gray-200: #e5e7eb;
+  --theme-gray-300: #d1d5db;
+  --theme-gray-400: #9ca3af;
+  --theme-gray-500: #6b7280;
+  --theme-gray-600: #4b5563;
+  --theme-gray-700: #374151;
+  --theme-gray-800: #1f2937;
+  --theme-gray-900: #111827;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+
+  h1, .h1 { @apply text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight; }
+  h2, .h2 { @apply text-2xl md:text-[28px] font-bold tracking-wide; }
+  h3, .h3 { @apply text-[17px] md:text-[18px] font-bold; }
+  h4, .h4 { @apply text-[14px] md:text-[15px] font-semibold; }
+  p, .p-text { @apply text-[14px] md:text-[15px] leading-relaxed; }
+}
+
+@utility container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @variant sm {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @variant lg {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@layer components {
+  .section-padding { @apply py-16 md:py-20 lg:py-24; }
+  .section-margin { @apply my-16 md:my-20 lg:my-24; }
+  .page-overlap-container-tall { @apply container mx-auto pt-8 md:pt-0 md:-mt-62.5 relative z-10 pb-16 md:pb-20 lg:pb-24; }
+  .page-overlap-container-short { @apply container mx-auto pt-8 md:pt-0 md:-mt-45 relative z-10 pb-16 md:pb-20 lg:pb-24; }
+  .page-card { @apply bg-white p-4 sm:p-8 lg:p-12 shadow-sm border border-border rounded-lg; }
+}
+
+@layer utilities {
+  .text-primary {
+    background-image: var(--theme-background-gradiant);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
