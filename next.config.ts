@@ -5,21 +5,14 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'plazmathemes.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "**",
+        pathname: "/**",
       },
       {
-        protocol: 'http',
-        hostname: '192.168.0.178',
-        port: '3001',
-        pathname: '/**',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3001',
-        pathname: '/**',
+        protocol: "http",
+        hostname: "**",
+        pathname: "/**",
       },
     ],
   },

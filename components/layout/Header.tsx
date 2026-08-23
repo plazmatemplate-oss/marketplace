@@ -100,7 +100,7 @@ export default function Header() {
   return (
     <header className="w-full bg-white z-40 relative">
       <div className="container mx-auto py-5 flex items-center justify-between border-b border-theme-gray-50">
-        
+
         <div className="flex items-center gap-4">
           <div className="lg:hidden">
             <Sheet>
@@ -112,9 +112,9 @@ export default function Header() {
                   <Link href="/" className="px-6 py-3 text-[15px] text-theme-gray-800 font-semibold hover:text-primary transition-colors">Home</Link>
                   <Link href="/modules" className="px-6 py-3 text-[15px] text-theme-gray-800 font-semibold hover:text-primary transition-colors">Plazma Modules</Link>
                   <Link href="/megashop" className="px-6 py-3 text-[15px] text-theme-gray-800 font-semibold hover:text-primary transition-colors">MegaShop Themes</Link>
-                  
+
                   <div className="group">
-                    <div 
+                    <div
                       className={cn(
                         "px-6 py-3 text-[15px] font-semibold flex items-center justify-between transition-colors",
                         isEStoreMobileOpen ? "text-primary" : "text-theme-gray-800"
@@ -123,7 +123,7 @@ export default function Header() {
                       <Link href="/estore" className="flex-1 hover:text-primary">
                         E-Store Themes
                       </Link>
-                      <button 
+                      <button
                         type="button"
                         className="p-2 -mr-2 cursor-pointer"
                         onClick={() => setIsEStoreMobileOpen(!isEStoreMobileOpen)}
@@ -136,8 +136,8 @@ export default function Header() {
                         {categoriesList.map((category) => {
                           const isActive = pathname === `/${category.slug}` || pathname.startsWith(`/${category.slug}/`);
                           return (
-                            <Link 
-                              key={category.slug} 
+                            <Link
+                              key={category.slug}
                               href={`/${category.slug}`}
                               className={cn(
                                 "px-6 py-2.5 pl-10 text-[14px] transition-colors flex items-center gap-3",
@@ -174,7 +174,7 @@ export default function Header() {
                         href="/order-history"
                         className="text-[14px] text-theme-gray-700 font-semibold hover:text-primary transition-colors flex items-center gap-2 mb-3"
                       >
-                        Order History
+                        Order History12
                       </Link>
                       <button
                         type="button"
@@ -198,11 +198,11 @@ export default function Header() {
               </SheetContent>
             </Sheet>
           </div>
-          
+
           <Link href="/" className="flex items-center">
-            <Image 
-              src="https://plazmathemes.com/img/logo-1729574384.jpg" 
-              alt="Plazma Themes Logo" 
+            <Image
+              src="/images/main-logo.jpg"
+              alt="Plazma Themes Logo"
               width={250}
               height={60}
               className="w-45 md:w-62.5 h-auto object-contain"
@@ -211,7 +211,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-6 md:gap-8">
-          
+
           {loggedInUser ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex flex-col items-center gap-1 hover:text-primary group outline-none cursor-pointer">
@@ -271,62 +271,62 @@ export default function Header() {
             </div>
             <span className="text-[12px] font-medium text-theme-gray-600 group-hover:text-primary transition-colors hidden md:block">Cart</span>
           </Link>
-          
+
         </div>
       </div>
 
       <div className="hidden lg:block h-13.25">
         <div className={cn(
           "w-full transition-all duration-300",
-          isScrolled 
-            ? "fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 animate-in slide-in-from-top-2" 
+          isScrolled
+            ? "fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 animate-in slide-in-from-top-2"
             : "relative bg-white/80 backdrop-blur-sm shadow-sm z-40"
         )}>
-        <nav className="container mx-auto flex items-center justify-center gap-8 py-3.5">
-          <Link href="/" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide">Home</Link>
-          <Link href="/modules" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">Plazma Modules</Link>
-          <Link href="/megashop" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">MegaShop Themes</Link>
-          
-          <div className="group relative py-3.5">
-            <Link 
-              href="/estore" 
-              className="text-[13px] font-medium text-theme-gray-600 group-hover:text-primary tracking-wide transition-colors outline-none flex items-center gap-1"
-            >
-              E-Store Themes <svg className="w-3 h-3 text-theme-gray-400 group-hover:text-theme-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-            </Link>
-            
-            <div className="absolute top-full left-0 w-125 bg-white shadow-xl border-b-2 border-b-primary rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6 pt-5">
-              
-              <div className="relative grid grid-cols-2 gap-x-12 gap-y-3.5">
-                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-theme-gray-100 -translate-x-1/2"></div>
-                
-                {categoriesList.map((category) => {
-                  const isActive = pathname === `/${category.slug}` || pathname.startsWith(`/${category.slug}/`);
-                  return (
-                    <Link 
-                      key={category.slug} 
-                      href={`/${category.slug}`}
-                      className={cn(
-                        "text-[13.5px] transition-colors flex items-center gap-2.5",
-                        isActive ? "text-primary font-medium" : "text-theme-gray-600 hover:text-primary"
-                      )}
-                    >
-                      <span className={cn(
-                        "w-1.5 h-1.5 rounded-full shrink-0",
-                        isActive ? "bg-primary border-0" : "border border-theme-gray-500"
-                      )}></span>
-                      {category.name}
-                    </Link>
-                  );
-                })}
+          <nav className="container mx-auto flex items-center justify-center gap-8 py-3.5">
+            <Link href="/" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide">Home</Link>
+            <Link href="/modules" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">Plazma Modules</Link>
+            <Link href="/megashop" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">MegaShop Themes</Link>
+
+            <div className="group relative py-3.5">
+              <Link
+                href="/estore"
+                className="text-[13px] font-medium text-theme-gray-600 group-hover:text-primary tracking-wide transition-colors outline-none flex items-center gap-1"
+              >
+                E-Store Themes <svg className="w-3 h-3 text-theme-gray-400 group-hover:text-theme-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+              </Link>
+
+              <div className="absolute top-full left-0 w-125 bg-white shadow-xl border-b-2 border-b-primary rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6 pt-5">
+
+                <div className="relative grid grid-cols-2 gap-x-12 gap-y-3.5">
+                  <div className="absolute left-1/2 top-0 bottom-0 w-px bg-theme-gray-100 -translate-x-1/2"></div>
+
+                  {categoriesList.map((category) => {
+                    const isActive = pathname === `/${category.slug}` || pathname.startsWith(`/${category.slug}/`);
+                    return (
+                      <Link
+                        key={category.slug}
+                        href={`/${category.slug}`}
+                        className={cn(
+                          "text-[13.5px] transition-colors flex items-center gap-2.5",
+                          isActive ? "text-primary font-medium" : "text-theme-gray-600 hover:text-primary"
+                        )}
+                      >
+                        <span className={cn(
+                          "w-1.5 h-1.5 rounded-full shrink-0",
+                          isActive ? "bg-primary border-0" : "border border-theme-gray-500"
+                        )}></span>
+                        {category.name}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
 
-          <Link href="/about" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">About Us</Link>
-          <Link href="/contact" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">Contact Us</Link>
-        </nav>
-      </div>
+            <Link href="/about" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">About Us</Link>
+            <Link href="/contact" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">Contact Us</Link>
+          </nav>
+        </div>
       </div>
     </header>
   );
