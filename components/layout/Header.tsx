@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { User, ShoppingBag, Menu, LogOut } from "lucide-react";
+import { User, ShoppingBag, Menu, LogOut, Package, ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUserProfile, AUTH_KEYS } from "@/hooks/useAuth";
@@ -14,6 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   Sheet,
@@ -82,6 +83,7 @@ export default function Header() {
 
   const loggedInUser = userProfile || currentUser;
   const userName = loggedInUser?.name || "Account";
+  const userInitial = userName ? userName.charAt(0).toUpperCase() : "A";
 
   const currencies = [
     { symbol: '€', code: 'EUR' },
@@ -174,7 +176,7 @@ export default function Header() {
                         href="/order-history"
                         className="text-[14px] text-theme-gray-700 font-semibold hover:text-primary transition-colors flex items-center gap-2 mb-3"
                       >
-                        Order History12
+                        Order History
                       </Link>
                       <button
                         type="button"
@@ -214,28 +216,56 @@ export default function Header() {
 
           {loggedInUser ? (
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex flex-col items-center gap-1 hover:text-primary group outline-none cursor-pointer">
-                <User className="h-5 w-5 text-theme-pink" />
-                <span className="text-[12px] font-medium text-theme-gray-800 group-hover:text-primary transition-colors hidden md:block max-w-24 truncate">
-                  {userName}
-                </span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-white shadow-md border border-theme-gray-100 p-1 z-50">
-                <div className="px-3 py-2 border-b border-theme-gray-100">
-                  <p className="text-xs font-bold text-theme-gray-800 truncate">{userName}</p>
-                  {loggedInUser.email && <p className="text-[11px] text-theme-gray-500 truncate">{loggedInUser.email}</p>}
+              <DropdownMenuTrigger className="flex flex-col items-center gap-0.5 group outline-none cursor-pointer">
+                <div className="relative">
+                  <User className="h-5 w-5 text-theme-pink group-hover:scale-110 transition-transform" />
                 </div>
-                <DropdownMenuItem>
-                  <Link href="/order-history" className="cursor-pointer text-xs text-theme-gray-700 hover:text-primary w-full">
-                    Order History
+                <div className="flex items-center gap-0.5">
+                  <span className="text-[12px] font-medium text-theme-gray-800 group-hover:text-primary transition-colors hidden md:block max-w-24 truncate">
+                    {userName}
+                  </span>
+                  <ChevronDown className="w-3 h-3 text-theme-gray-400 group-hover:text-primary transition-transform duration-200 hidden md:block" />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" sideOffset={8} className="w-64 bg-white/95 backdrop-blur-md shadow-2xl shadow-slate-200/80 border border-slate-100 p-2 rounded-2xl z-50">
+                <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-100/80 mb-1.5 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-rose-500 text-white font-bold text-sm flex items-center justify-center shrink-0 shadow-sm border-2 border-white">
+                    {userInitial}
+                  </div>
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <p className="text-xs font-bold text-slate-800 truncate leading-tight">{userName}</p>
+                    {loggedInUser.email && (
+                      <p className="text-[11px] text-slate-500 truncate mt-0.5">{loggedInUser.email}</p>
+                    )}
+                  </div>
+                </div>
+
+                <DropdownMenuItem className="p-0 hover:bg-transparent focus:bg-transparent">
+                  <Link
+                    href="/order-history"
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs md:text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100/80 focus:bg-slate-100/80 transition-colors w-full cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-1.5 rounded-lg bg-pink-50 text-pink-600 group-hover:bg-pink-100 transition-colors">
+                        <Package className="w-4 h-4" />
+                      </div>
+                      <span>Order History</span>
+                    </div>
                   </Link>
                 </DropdownMenuItem>
+
+                <DropdownMenuSeparator className="my-1.5 bg-slate-100" />
+
                 <DropdownMenuItem
                   onClick={handleLogout}
-                  className="cursor-pointer text-xs text-red-600 hover:bg-red-50 focus:text-red-600 flex items-center justify-between mt-1"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs md:text-sm font-medium text-rose-600 hover:bg-rose-50 focus:bg-rose-50 focus:text-rose-600 transition-colors cursor-pointer group"
                 >
-                  <span>Logout</span>
-                  <LogOut className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-1.5 rounded-lg bg-rose-50 text-rose-600 group-hover:bg-rose-100 transition-colors">
+                      <LogOut className="w-4 h-4" />
+                    </div>
+                    <span>Logout</span>
+                  </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
