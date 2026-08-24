@@ -15,30 +15,30 @@ import { useProductReviews } from "@/hooks/useProducts";
 const ReviewDialog = dynamic(() => import("./ReviewDialog"), { ssr: false });
 
 const PRODUCT_FEATURES = [
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_1.png", title: "Google Fonts", desc: "All layouts created with differnt google fonts to make website more beautiful, fast, and open through great typography." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_2.png", title: "PSD Files Included", desc: "We provide layered organized psd files for all layouts (for those who want to photoshop)." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_3.png", title: "RTL Support", desc: "RTL support means you can spot 'right to left' languages. This ensures that your site can cater to readers from all around the globe." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_4.png", title: "Multi Store Ready", desc: "Prestashop multistore features enable with this theme to manage multiple online store with one admin panel." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_5.png", title: "Multi Language", desc: "This theme is compatible with all language and currency provide by prestashop which help to sale your product worldwide." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_6.png", title: "Child Theme Support", desc: "To make transferring your settings even easier with child theme support! These make it easier to switch themes, upgrade and more." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_7.png", title: "100% Responsive Design", desc: "This theme is fully responsive. Tested on real devices iOS, Android & Windows based." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_8.png", title: "SEO Optimization", desc: "SEO optimized sites helps you to increase the visibility of your website when people search for products or services." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_1.png", title: "Ajax Cart", desc: "This feature helps to add and remove products directly into the cart from any page using Ajax operations." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_2.png", title: "Ajax Quickview", desc: "This feature allows customers to see product details on popup window with ajax from any product list page." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_3.png", title: "ajax wishlist & compare", desc: "wishlist feature helps you to mark product as favourite for future buy and compare feature will help you to compare different products feature." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_4.png", title: "Ajax product filter", desc: "this module is display on category page to filter products with different criteria without page refresh." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_5.png", title: "Content Management System", desc: "it refers to the software platform that allows users to create, manage, and publish content on their online store, which is primarily focused on e-commerce functionalities within the PrestaShop framework." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_6.png", title: "Product Comment Module", desc: "Product comment module is display review for your products given by your customers." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_7.png", title: "Blog Module", desc: "We provide blog module to create post for your store." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_8.png", title: "Count Down Timer", desc: "Product offer count down timer module will help you to set discount for specific time which display on frontend with timer." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_9.png", title: "Product Tab", desc: "Display details description about product and features on product page using click on different tab." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_1.png", title: "Product Zoom", desc: "Product image zoom feature allows you to facilitate users in magnifying product images to get a clear picture of the store item of their interest." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_2.png", title: "Lazy Load", desc: "Lazy load is a technique that defers loading of non-critical resources at page load time which help us to improve store performance." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_3.png", title: "Custom CMS Banner", desc: "Custom banners provide an easy way to display your content very amazing on your website." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_4.png", title: "Product Grid/List", desc: "Product Gris/List allows you to changes product view from grid to list and list to grid view." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_5.png", title: "Online Chat", desc: "It allows you to live chat with website visitors, monitor site traffic, and analyze visitors web activities" },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_6.png", title: "Newsletter Popup", desc: "Using this module you can attract new subscribers and retain them with a discount on their next purchase." },
-  { img: "https://plazmathemes.com/modules/badfeatureblock/views/img/demo_img_7.png", title: "EU Cookie Law", desc: "EU cookie law module allows you to elegantly inform users that your site uses cookies through an elegant notification at bottom of your site." }
+  { img: "/images/features/google-fonts.png", title: "Google Fonts", desc: "All layouts created with differnt google fonts to make website more beautiful, fast, and open through great typography." },
+  { img: "/images/features/psd-files.png", title: "PSD Files Included", desc: "We provide layered organized psd files for all layouts (for those who want to photoshop)." },
+  { img: "/images/features/rtl-support.png", title: "RTL Support", desc: "RTL support means you can spot 'right to left' languages. This ensures that your site can cater to readers from all around the globe." },
+  { img: "/images/features/multi-store.png", title: "Multi Store Ready", desc: "Prestashop multistore features enable with this theme to manage multiple online store with one admin panel." },
+  { img: "/images/features/multi-language.png", title: "Multi Language", desc: "This theme is compatible with all language and currency provide by prestashop which help to sale your product worldwide." },
+  { img: "/images/features/child-theme.png", title: "Child Theme Support", desc: "To make transferring your settings even easier with child theme support! These make it easier to switch themes, upgrade and more." },
+  { img: "/images/features/responsive-design.png", title: "100% Responsive Design", desc: "This theme is fully responsive. Tested on real devices iOS, Android & Windows based." },
+  { img: "/images/features/seo-optimization.png", title: "SEO Optimization", desc: "SEO optimized sites helps you to increase the visibility of your website when people search for products or services." },
+  { img: "/images/features/ajax-cart.png", title: "Ajax Cart", desc: "This feature helps to add and remove products directly into the cart from any page using Ajax operations." },
+  { img: "/images/features/ajax-quickview.png", title: "Ajax Quickview", desc: "This feature allows customers to see product details on popup window with ajax from any product list page." },
+  { img: "/images/features/ajax-wishlist-compare.png", title: "ajax wishlist & compare", desc: "wishlist feature helps you to mark product as favourite for future buy and compare feature will help you to compare different products feature." },
+  { img: "/images/features/ajax-product-filter.png", title: "Ajax product filter", desc: "this module is display on category page to filter products with different criteria without page refresh." },
+  { img: "/images/features/cms.png", title: "Content Management System", desc: "it refers to the software platform that allows users to create, manage, and publish content on their online store, which is primarily focused on e-commerce functionalities within the PrestaShop framework." },
+  { img: "/images/features/product-comments.png", title: "Product Comment Module", desc: "Product comment module is display review for your products given by your customers." },
+  { img: "/images/features/blog.png", title: "Blog Module", desc: "We provide blog module to create post for your store." },
+  { img: "/images/features/countdown-timer.png", title: "Count Down Timer", desc: "Product offer count down timer module will help you to set discount for specific time which display on frontend with timer." },
+  { img: "/images/features/product-tabs.png", title: "Product Tab", desc: "Display details description about product and features on product page using click on different tab." },
+  { img: "/images/features/product-zoom.png", title: "Product Zoom", desc: "Product image zoom feature allows you to facilitate users in magnifying product images to get a clear picture of the store item of their interest." },
+  { img: "/images/features/lazy-load.png", title: "Lazy Load", desc: "Lazy load is a technique that defers loading of non-critical resources at page load time which help us to improve store performance." },
+  { img: "/images/features/cms-banner.png", title: "Custom CMS Banner", desc: "Custom banners provide an easy way to display your content very amazing on your website." },
+  { img: "/images/features/product-grid-list.png", title: "Product Grid/List", desc: "Product Gris/List allows you to changes product view from grid to list and list to grid view." },
+  { img: "/images/features/online-chat.png", title: "Online Chat", desc: "It allows you to live chat with website visitors, monitor site traffic, and analyze visitors web activities" },
+  { img: "/images/features/newsletter-popup.png", title: "Newsletter Popup", desc: "Using this module you can attract new subscribers and retain them with a discount on their next purchase." },
+  { img: "/images/features/eu-cookie-law.png", title: "EU Cookie Law", desc: "EU cookie law module allows you to elegantly inform users that your site uses cookies through an elegant notification at bottom of your site." }
 ];
 
 export default function ProductMainContent({
@@ -172,10 +172,10 @@ export default function ProductMainContent({
                   <Image
                     src={feat.img}
                     alt={feat.title}
-                    width={64}
-                    height={64}
+                    width={80}
+                    height={80}
                     unoptimized
-                    className="mb-5 h-16 w-16 object-contain"
+                    className="mb-5 h-20 w-20 object-contain"
                   />
                   <h4 className="mb-2 text-[15px] font-bold text-theme-gray-700">
                     {feat.title}

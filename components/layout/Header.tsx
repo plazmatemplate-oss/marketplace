@@ -159,7 +159,7 @@ export default function Header() {
                   <Link href="/about" className="px-6 py-3 text-[15px] text-theme-gray-800 font-semibold hover:text-primary transition-colors">About Us</Link>
                   <Link href="/contact" className="px-6 py-3 text-[15px] text-theme-gray-800 font-semibold hover:text-primary transition-colors">Contact Us</Link>
 
-                  {loggedInUser ? (
+                  {/* {loggedInUser ? (
                     <div className="border-t border-theme-gray-100 mt-2 pt-3 px-6">
                       <div className="text-[15px] font-bold text-theme-gray-800 mb-0.5 flex items-center gap-2">
                         <User className="w-4 h-4 text-theme-pink" />
@@ -193,7 +193,7 @@ export default function Header() {
                       </Link>
                       <Link href="/registration" className="px-6 py-3 text-[14px] text-theme-gray-600 hover:text-primary transition-colors">Create Account</Link>
                     </div>
-                  )}
+                  )} */}
                 </nav>
               </SheetContent>
             </Sheet>

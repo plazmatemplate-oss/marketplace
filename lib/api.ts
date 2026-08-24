@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface ApiResponse<T = any> {
   success?: boolean;

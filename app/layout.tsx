@@ -56,11 +56,11 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased font-sans", inter.variable)}
     >
-      <header>
+      <head>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3763297443777958"
           crossOrigin="anonymous"></Script>
         <meta name="google-adsense-account" content="ca-pub-3763297443777958"></meta>
-      </header>
+      </head>
       <body className="flex flex-col min-h-screen">
         <Providers>
           <Toaster />

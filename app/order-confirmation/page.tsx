@@ -16,7 +16,7 @@ export default function OrderConfirmationPage() {
     <div className="bg-white min-h-screen">
       <div
         className="hidden md:block w-full h-100 bg-cover bg-center bg-no-repeat relative"
-        style={{ backgroundImage: 'url("https://plazmathemes.com/modules/badhomebanner/views/img/demo_img_1.png")' }}
+        style={{ backgroundImage: 'url("/images/about-bg.png")' }}
       >
         <div className="absolute inset-0 bg-white/20" />
       </div>

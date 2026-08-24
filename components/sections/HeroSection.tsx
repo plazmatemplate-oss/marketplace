@@ -1,8 +1,7 @@
 export default function HeroSection() {
   return (
     <section 
-      className="relative w-full py-24 md:py-36 flex flex-col items-center justify-center text-center px-4 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: 'url("https://plazmathemes.com/modules/badhomebanner/views/img/demo_img_1.png")' }}
+      className="relative w-full py-24 md:py-36 flex flex-col items-center justify-center text-center px-4 bg-cover bg-center bg-no-repeat bg-[url('/images/home/home-banner-small.jpg')] min-[575px]:bg-[url('/images/home/home-banner.png')] bg-cover bg-center bg-no-repeat "
     >
       <h1 className="text-[32px] md:text-5xl lg:text-[54px] font-bold tracking-tight text-theme-gray-800 mb-4 w-full leading-tight flex flex-col items-center">
         <span>249+ Best PrestaShop</span>
