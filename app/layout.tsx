@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import TopBanner from "@/components/layout/TopBanner";
 import FloatingSocial from "@/components/layout/FloatingSocial";
 import BackToTop from "@/components/common/BackToTop";
+import WhatsAppButton from "@/components/common/WhatsAppButton";
 import Providers from "./providers";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
@@ -74,6 +75,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <BackToTop />
+          <WhatsAppButton />
         </Providers>
       </body>
     </html>

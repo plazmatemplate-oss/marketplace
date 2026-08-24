@@ -7,8 +7,8 @@ export default function TrustedExcellence() {
       <div className="container mx-auto">
         <div className="bg-white rounded-tl-[80px] rounded-br-[80px] p-8 md:p-12 relative overflow-hidden shadow-md mx-auto w-full">
 
-          <div className="absolute top-0 left-0 w-32 h-32 bg-theme-light-blue rounded-br-[100px] -z-10"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 bg-theme-light-blue rounded-tl-[100px] -z-10"></div>
+          <div className="absolute top-0 left-0 w-32 h-32 bg-theme-light-blue/40 rounded-br-[100px] -z-10"></div>
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-theme-light-blue/40 rounded-tl-[100px] -z-10"></div>
 
           <div className="flex justify-center mb-6">
             <Image
@@ -25,16 +25,17 @@ export default function TrustedExcellence() {
             Certified PrestaShop Themes & Templates – Trusted Excellence
           </h2>
 
-          <div className="max-w-3xl mx-auto space-y-5 text-[15px] text-theme-gray-500 leading-relaxed">
+          <div className="max-w-5xl mx-auto space-y-5 text-[15px] text-theme-gray-500 leading-relaxed">
             <p>
-              Searching for the ideal PrestaShop theme to boost your online store&apos;s design and performance?<br />
-              Look no further than <strong className="text-theme-gray-800">Plazma themes</strong>, the trusted official partner for PrestaShop <strong className="text-transparent bg-clip-text bg-(image:--theme-background-gradiant)">themes and templates!</strong>
+              Searching for the ideal PrestaShop theme to boost your online store&apos;s design and performance? Look no further than{" "}
+              <strong className="font-bold text-theme-gray-900">Plazma Themes</strong>, the trusted official partner for PrestaShop{" "}
+              <strong className="font-bold text-transparent bg-clip-text bg-(image:--theme-background-gradiant)">
+                themes and templates!
+              </strong>
             </p>
 
             <p>
-              They provide top-tier <strong className="text-theme-gray-800">e-commerce templates</strong> tailored to industries such as<br />
-              Mega Electronics Store, Fashion, Organic , Grocery Store, Food & Restaurant, Artcraft, Handmade, Shoes, Jewellery,<br />
-              Book, Autoparts & Automotive, Health & Beauty, Home Decore & Furnirure, and Sports & Activities, Home Appliances.
+              They provide top-tier <strong className="font-bold text-theme-gray-800">e-commerce templates</strong> tailored to industries such as Mega Electronics Store, Fashion, Organic, Grocery Store, Food & Restaurant, Artcraft, Handmade, Shoes, Jewellery, Book, Autoparts & Automotive, Health & Beauty, Home Decor & Furniture, and Sports & Activities, Home Appliances.
             </p>
 
             <p>
@@ -42,8 +43,12 @@ export default function TrustedExcellence() {
             </p>
 
             <p>
-              Their <strong className="text-theme-gray-800">expert support</strong> team is always ready to help, <strong className="text-theme-gray-800">providing 24/7 assistance</strong> for any challenges you might face. Trust<br />
-              <strong className="text-transparent bg-clip-text bg-(image:--theme-background-gradiant)">Plazma themes</strong> for all your PrestaShop theme needs and watch your online store thrive.
+              Their <strong className="font-bold text-theme-gray-800">expert support</strong> team is always ready to help,{" "}
+              <strong className="font-bold text-theme-gray-800">providing 24/7 assistance</strong> for any challenges you might face. Trust{" "}
+              <strong className="font-bold text-transparent bg-clip-text bg-(image:--theme-background-gradiant)">
+                Plazma Themes
+              </strong>{" "}
+              for all your PrestaShop theme needs and watch your online store thrive.
             </p>
           </div>
 

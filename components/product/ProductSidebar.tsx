@@ -208,17 +208,26 @@ export default function ProductSidebar({ product }: Readonly<ProductSidebarProps
             const formattedPrice = typeof p.price === "number" ? `€${p.price.toFixed(2)}` : (p.price || "€0.00");
 
             return (
-              <Card key={p._id || p.slug} className="p-3 flex gap-3 hover:shadow-md transition-shadow">
-                <div className="relative w-20 h-20 bg-theme-gray-50 rounded shrink-0 overflow-hidden">
-                  <Image src={imageUrl} alt={p.title} fill unoptimized className="object-cover" />
+              <Card key={p._id || p.slug} className="group relative cursor-pointer p-3.5 flex flex-col hover:shadow-md transition-shadow border border-theme-gray-100 rounded-lg">
+                <div className="relative aspect-square w-full bg-white rounded-md overflow-hidden mb-3 border border-theme-gray-100 p-1">
+                  <Link href={href}>
+                    <Image
+                      src={imageUrl}
+                      alt={p.title}
+                      width={400}
+                      height={400}
+                      unoptimized
+                      className="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </Link>
                 </div>
-                <div className="flex flex-col justify-between flex-1 min-w-0">
-                  <Link href={href} className="text-[13px] font-semibold text-theme-gray-800 hover:text-primary line-clamp-2 leading-tight">
+                <div className="flex flex-col flex-1">
+                  <Link href={href} className="text-[13.5px] font-semibold text-theme-gray-800 hover:text-primary line-clamp-2 leading-tight mb-3">
                     {p.title}
                   </Link>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="text-[14px] font-bold text-theme-gray-900">{formattedPrice}</span>
-                    <Link href={href} className="text-theme-gray-400 hover:text-primary">
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-[15px] font-bold text-theme-gray-900">{formattedPrice}</span>
+                    <Link href={href} className="text-theme-gray-400 hover:text-primary p-1 rounded-full hover:bg-slate-100 transition-colors">
                       <ArrowUpRight className="w-4 h-4" />
                     </Link>
                   </div>

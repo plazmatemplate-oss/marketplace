@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ShoppingCart, TrendingUp, Star, Loader2 } from "lucide-react";
+import { ShoppingCart, TrendingUp, Star, Loader2, ExternalLink } from "lucide-react";
 import { cn, getImageUrl } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAddToCart } from "@/hooks/useCart";
@@ -20,6 +20,7 @@ export interface ProductCardProps {
   discount?: string;
   rating?: number;
   sales?: number;
+  demoUrl?: string;
 }
 
 export default function ProductCard({
@@ -33,11 +34,13 @@ export default function ProductCard({
   discount,
   rating = 0,
   sales = 0,
+  demoUrl,
 }: Readonly<ProductCardProps>) {
   const router = useRouter();
   const addToCartMutation = useAddToCart();
   const imageUrl = getImageUrl(image);
   const productHref = slug ? `/product/${slug}` : id ? `/product/${id}` : "#";
+  const liveSiteUrl = demoUrl;
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -64,7 +67,7 @@ export default function ProductCard({
   };
 
   return (
-    <Card className="group relative cursor-pointer p-3.75 overflow-hidden flex flex-col h-full transition-shadow duration-300 hover:shadow-md">
+    <Card className="group relative p-3.75 overflow-hidden flex flex-col h-full transition-shadow duration-300 hover:shadow-md">
       
       <div className="relative aspect-square bg-white shrink-0 rounded-md overflow-hidden">
         <Link href={productHref}>
@@ -99,7 +102,7 @@ export default function ProductCard({
       <div className="relative flex flex-col grow bg-white transition-all duration-300 ease-in-out transform group-hover:-translate-y-13 z-10">
         
         <CardContent className="pt-4 flex flex-col flex-1 px-0 pb-0">
-          <Link href={productHref} className="text-theme-gray-700 font-semibold text-[14px] hover:text-theme-pink transition-colors line-clamp-2 mb-4 leading-tight">
+          <Link href={productHref} className="text-theme-gray-700 font-semibold text-[14px] hover:text-theme-pink transition-colors line-clamp-2 mb-4 leading-tight min-h-[40px] block">
             {title}
           </Link>
           
@@ -116,19 +119,19 @@ export default function ProductCard({
               </div>
             </div>
 
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end justify-end min-h-8.5">
               {oldPrice && <span className="text-theme-gray-400 line-through text-xs mb-0.5">{oldPrice}</span>}
               <span className="text-theme-gray-900 font-bold text-[19px] leading-none">{price}</span>
             </div>
           </div>
         </CardContent>
 
-        <div className="mt-2.25 absolute top-full left-0 right-0 h-13 px-4 flex gap-2 pb-4 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="mt-2.5 absolute top-full left-0 right-0 h-13 px-0 flex gap-2 pb-4 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
             type="button"
             onClick={handleAddToCart}
             disabled={addToCartMutation.isPending}
-            className="w-full bg-theme-dark-blue text-white py-2.5 rounded-sm font-semibold text-sm hover:bg-theme-gray-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+            className="flex-1 bg-theme-dark-blue text-white py-2.5 rounded-sm font-semibold text-sm hover:bg-theme-gray-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
           >
             {addToCartMutation.isPending ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -137,6 +140,18 @@ export default function ProductCard({
             )}
             Add To Cart
           </button>
+
+          {liveSiteUrl && (
+            <a
+              href={liveSiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="w-9 h-9 bg-(image:--theme-background-gradiant)  text-white rounded-sm flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          )}
         </div>
         
       </div>

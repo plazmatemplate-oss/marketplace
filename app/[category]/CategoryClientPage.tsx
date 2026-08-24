@@ -134,6 +134,7 @@ export default function CategoryClientPage({
                       isNew={product.isNew}
                       rating={product.rating || 0}
                       sales={product.sales}
+                      demoUrl={product.demoUrl}
                     />
                   ))}
                 </div>

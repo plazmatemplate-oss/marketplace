@@ -1,15 +1,25 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/common/ProductCard";
 import SectionTitle from "@/components/common/SectionTitle";
 import { useCategories } from "@/hooks/useCategories";
 import { useProducts } from "@/hooks/useProducts";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 export default function UltimateShowcases() {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   // 1. Fetch categories dynamically from API
   const { data: apiCategories, isLoading: isCategoriesLoading } = useCategories();
@@ -40,9 +50,10 @@ export default function UltimateShowcases() {
   }, [activeTab]);
 
   // 2. Fetch products dynamically from API based on selected category tab
-  const { data: apiProducts, isLoading: isProductsLoading } = useProducts(
-    selectedCategoryParam ? { category: selectedCategoryParam } : undefined
-  );
+  const { data: apiProducts, isLoading: isProductsLoading } = useProducts({
+    ...(selectedCategoryParam ? { category: selectedCategoryParam } : {}),
+    pageSize: 16,
+  });
 
   // Format API products for ProductCard component
   const formattedProducts = useMemo(() => {
@@ -61,16 +72,58 @@ export default function UltimateShowcases() {
           : undefined,
       rating: p.rating ?? 0,
       sales: p.sales || 0,
+      demoUrl: p.demoUrl,
     }));
   }, [apiProducts]);
 
-  const visibleCategories = showAllCategories ? categoriesList : categoriesList.slice(0, 8);
+  // Pair products into columns of 2 items (Top & Bottom rows) for 1-by-1 column scrolling
+  const productColumns = useMemo(() => {
+    if (!formattedProducts || formattedProducts.length === 0) return [];
+    const columns = [];
+    for (let i = 0; i < formattedProducts.length; i += 2) {
+      columns.push(formattedProducts.slice(i, i + 2));
+    }
+    return columns;
+  }, [formattedProducts]);
 
-  // Dynamic total count for section header
-  const totalDemosCount = useMemo(() => {
-    const homeCat = categoriesList.find((c) => c.id === "all");
-    return homeCat?.count ? `${homeCat.count}+` : "0+";
-  }, [categoriesList]);
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setSelectedIndex(api.selectedScrollSnap());
+    };
+
+    setScrollSnaps(api.scrollSnapList());
+    onSelect();
+
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api, productColumns]);
+
+  // Reset scroll to first slide when active category tab changes
+  useEffect(() => {
+    if (api) {
+      api.scrollTo(0);
+    }
+  }, [activeTab, api]);
+
+  // Continuous Auto Scroll 1-by-1 column (stops immediately when hovered)
+  useEffect(() => {
+    if (!api || isHovered || productColumns.length <= 4) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [api, isHovered, productColumns.length]);
+
+  const visibleCategories = showAllCategories ? categoriesList : categoriesList.slice(0, 8);
 
   return (
     <section className="w-full bg-theme-light pt-16 pb-12 text-center border-b border-theme-gray-100">
@@ -78,10 +131,10 @@ export default function UltimateShowcases() {
         <h2 className="text-[54px] font-extrabold text-transparent bg-clip-text bg-(image:--theme-background-gradiant) leading-none mb-2 block w-fit mx-auto">
           249+
         </h2>
-        <SectionTitle 
-          title="Ultimate Showcases" 
+        <SectionTitle
+          title="Ultimate Showcases"
           subtitle="Discover The Pinnacle Of Presentation With Our Stunning, High-Quality Demos. Experience The Best In Design And Innovation, All In One Place."
-          className="mb-8" 
+          className="mb-8"
         />
 
         {isCategoriesLoading ? (
@@ -93,21 +146,17 @@ export default function UltimateShowcases() {
             {visibleCategories.map((cat) => {
               const isActive = activeTab === cat.id || activeTab === cat.slug;
               return (
-                <button 
+                <button
                   type="button"
-                  key={cat.id} 
+                  key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
                   className={`px-5 py-2.5 rounded-sm flex items-center justify-center gap-3 font-semibold text-sm shadow-sm transition-all w-[calc(50%-8px)] lg:w-[calc(25%-12px)] cursor-pointer
-                    ${isActive 
-                      ? "bg-(image:--theme-background-gradiant) text-white shadow-md" 
+                    ${isActive
+                      ? "bg-(image:--theme-background-gradiant) text-white shadow-md"
                       : "bg-white text-theme-gray-700 hover:shadow-md"
                     }`}
                 >
-                  {cat.name} 
-                  {/* <span className={`inline-flex items-center justify-center min-w-[24px] h-5 px-1.5 rounded-sm text-xs font-bold
-                    ${isActive ? "bg-white text-theme-pink" : "text-theme-pink"}`}>
-                    {cat.count}
-                  </span> */}
+                  {cat.name}
                 </button>
               );
             })}
@@ -116,7 +165,7 @@ export default function UltimateShowcases() {
 
         {categoriesList.length > 8 && (
           <div className="flex justify-center mb-12">
-            <button 
+            <button
               type="button"
               onClick={() => setShowAllCategories(!showAllCategories)}
               className="bg-white border border-theme-gray-100 shadow-sm text-theme-gray-700 hover:text-theme-pink px-8 py-2.5 rounded-sm font-semibold text-sm transition-colors cursor-pointer"
@@ -130,11 +179,37 @@ export default function UltimateShowcases() {
           <div className="py-12 text-center text-theme-gray-500 font-medium">
             Loading showcase templates...
           </div>
-        ) : formattedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left mb-10">
-            {formattedProducts.slice(0, 8).map((product) => (
-              <ProductCard key={`showcase-${product.id}`} {...product} />
-            ))}
+        ) : productColumns.length > 0 ? (
+          <div
+            className="relative mb-8 py-2"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Shadcn Carousel: 4 columns visible (8 products), scrolling 1-by-1 column */}
+            <Carousel
+              setApi={setApi}
+              opts={{
+                loop: true,
+                align: "start",
+                duration: 35,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-6 py-3">
+                {productColumns.map((col, colIdx) => (
+                  <CarouselItem
+                    key={`col-${colIdx}`}
+                    className="pl-6 basis-full sm:basis-1/2 lg:basis-1/4"
+                  >
+                    <div className="flex flex-col gap-6 text-left">
+                      {col.map((product) => (
+                        <ProductCard key={`showcase-${product.id}`} {...product} />
+                      ))}
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
         ) : (
           <div className="py-12 text-center text-theme-gray-500 font-medium">
@@ -151,3 +226,6 @@ export default function UltimateShowcases() {
     </section>
   );
 }
+
+
+

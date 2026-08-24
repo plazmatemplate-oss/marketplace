@@ -46,7 +46,9 @@ export default function ProductClientPage({ slug }: { slug: string }) {
             title="Ultimate Price Drops on Best Deals"
             categoryFilter={categoryParam}
             rows={1}
+            pageSize={8}
             viewMoreLink="/prices-drop"
+            isPadding={false}
           />
         </div>
       </div>
