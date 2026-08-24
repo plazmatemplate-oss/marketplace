@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function MegaShopPage() {
-  return <CategoryClientPage pageTitle="MegaShop Themes" fetchWithoutCategory={true} />;
+  return <CategoryClientPage pageTitle="MegaShop Themes" categorySlug="megashop-themes" />;
 }
