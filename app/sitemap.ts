@@ -70,7 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const productMap = new Map<string, { slug: string; updatedAt?: string }>();
 
   try {
-    const apiProducts = await getProductsApi();
+    const apiProducts = await getProductsApi({ pageSize: 1000, pageNumber: 1 });
     if (Array.isArray(apiProducts)) {
       apiProducts.forEach((product) => {
         const slugVal = product.slug || product._id;
