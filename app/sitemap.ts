@@ -1,6 +1,4 @@
 import { MetadataRoute } from 'next';
-import { categories as fallbackCategories } from '@/lib/categories';
-import { MOCK_PRODUCTS as fallbackProducts } from '@/lib/data';
 import { getCategoriesApi, getSubcategoriesApi } from '@/services/categoryService';
 import { getProductsApi } from '@/services/productService';
 
@@ -61,14 +59,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Failed to fetch dynamic categories for sitemap:", err);
   }
 
-  // Include fallback categories for offline/build fallback
-  fallbackCategories.forEach((cat) => {
-    if (cat.slug) categorySlugs.add(cat.slug);
-    cat.subCategories?.forEach((sub) => {
-      if (sub.slug) categorySlugs.add(sub.slug);
-    });
-  });
-
   const categoryPages = Array.from(categorySlugs).map((slug) => ({
     url: `${baseUrl}/${slug}`,
     lastModified: new Date(),
@@ -95,14 +85,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch (err) {
     console.error("Failed to fetch dynamic products for sitemap:", err);
   }
-
-  // Include fallback products for offline/build fallback
-  fallbackProducts.forEach((product) => {
-    const slugVal = String(product.id);
-    if (!productMap.has(slugVal)) {
-      productMap.set(slugVal, { slug: slugVal });
-    }
-  });
 
   const productPages = Array.from(productMap.values()).map((product) => ({
     url: `${baseUrl}/product/${product.slug}`,
