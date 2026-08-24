@@ -131,14 +131,14 @@ export default function ProductCard({
             type="button"
             onClick={handleAddToCart}
             disabled={addToCartMutation.isPending}
-            className="flex-1 bg-theme-dark-blue text-white py-2.5 rounded-sm font-semibold text-sm hover:bg-theme-gray-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+            className="flex-1 bg-theme-dark-blue text-white py-2 rounded-sm font-semibold text-xs sm:text-sm hover:bg-theme-gray-800 transition-colors flex items-center justify-center gap-1.75 cursor-pointer disabled:opacity-70 whitespace-nowrap"
           >
             {addToCartMutation.isPending ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <ShoppingCart className="w-4 h-4" />
             )}
-            Add To Cart
+            <span>Add To Cart</span>
           </button>
 
           {liveSiteUrl && (
@@ -147,9 +147,10 @@ export default function ProductCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="w-9 h-9 bg-(image:--theme-background-gradiant)  text-white rounded-sm flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+              className="bg-(image:--theme-background-gradiant) text-white px-2.5 py-2 rounded-sm font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.75 shrink-0 transition-opacity hover:opacity-90 cursor-pointer whitespace-nowrap"
             >
               <ExternalLink className="w-4 h-4" />
+              <span>Live Demo</span>
             </a>
           )}
         </div>
