@@ -99,7 +99,7 @@ export default function CheckoutForm() {
       // POST /payment/razorpay-order
       const razorpayOrder = await createRazorpayOrderApi({
         amount: subtotal,
-        currency: "INR",
+        currency: "EUR",
         receipt: createdOrderId || "1",
       });
 
@@ -116,7 +116,7 @@ export default function CheckoutForm() {
       const options = {
         key: razorpayKey,
         amount: razorpayAmount,
-        currency: razorpayOrder?.currency || "INR",
+        currency: razorpayOrder?.currency || "EUR",
         name: "Plazma Themes",
         description: "Purchase Order",
         order_id: razorpayOrderId,
