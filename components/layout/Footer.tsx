@@ -36,7 +36,7 @@ const FOOTER_LINKS = [
       { label: "Contact Us", href: "/contact" },
       { label: "Sign In", href: "/login" },
       { label: "Create Account", href: "/registration" },
-      { label: "Forgot Password", href: "/password-recovery" },
+      // { label: "Forgot Password", href: "/password-recovery" },
     ]
   },
   {
@@ -64,6 +64,7 @@ function LogoBlock({ isMobile = false }: Readonly<{ isMobile?: boolean }>) {
       <div className={`flex items-center gap-3 text-[13px] text-theme-gray-600 ${isMobile ? "justify-center" : ""}`}>
         <Mail className="h-4 w-4 text-theme-gray-800 shrink-0" />
         <span>plazmatemplate@gmail.com</span>
+
       </div>
     </div>
   );
