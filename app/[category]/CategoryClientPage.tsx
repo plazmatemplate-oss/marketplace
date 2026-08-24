@@ -44,7 +44,7 @@ export default function CategoryClientPage({
   fetchWithoutCategory = false,
 }: Readonly<CategoryClientPageProps>) {
   const { data: fetchedCategories } = useCategories();
-  
+
   const queryParams = fetchWithoutCategory ? undefined : { category: categorySlug };
   const {
     data,
@@ -94,13 +94,13 @@ export default function CategoryClientPage({
   return (
     <div className="bg-theme-light-gray section-padding">
       <div className="container mx-auto">
-        
+
         <div className="flex flex-col items-center mb-12">
           <SectionTitle title={title} />
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-          
+
           <div className="w-full lg:w-70 shrink-0 flex flex-col gap-8">
             <CategorySidebar />
             {/* <ProductFilters /> */}
@@ -108,12 +108,13 @@ export default function CategoryClientPage({
 
           <div className="flex-1 flex flex-col w-full">
             <div className="mb-6 flex items-center justify-between">
-              <span className="text-[15px] text-theme-gray-600">{products.length} products.</span>
+              {!isLoading && <span className="text-[15px] text-theme-gray-600">{products.length} products.</span>}
             </div>
 
             {isLoading ? (
-              <div className="py-20 flex justify-center items-center">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              <div className="py-20 flex flex-col justify-center items-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin" />
+                <span className="text-theme-gray-500 font-medium text-sm">Loading products...</span>
               </div>
             ) : products.length === 0 ? (
               <div className="py-16 text-center text-theme-gray-500 font-medium bg-white rounded-lg border border-theme-gray-100">
@@ -123,7 +124,7 @@ export default function CategoryClientPage({
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {products.map((product, index) => (
-                    <ProductCard 
+                    <ProductCard
                       key={`${product._id || product.slug || 'product'}-${index}`}
                       id={product._id}
                       slug={product.slug}

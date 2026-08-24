@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ModulesPage() {
-  return <CategoryClientPage pageTitle="Plazma Modules" fetchWithoutCategory={true} />;
+  return <CategoryClientPage categorySlug="custom-modules" pageTitle="Plazma Modules" />;
 }

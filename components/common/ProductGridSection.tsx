@@ -11,6 +11,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Product {
@@ -116,7 +117,10 @@ export default function ProductGridSection({
       </div>
 
       {isLoading ? (
-        <div className="text-center py-10 text-theme-gray-500 font-medium">Loading products...</div>
+        <div className="py-16 flex flex-col items-center justify-center gap-3">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <span className="text-theme-gray-500 font-medium text-sm">Loading products...</span>
+        </div>
       ) : productColumns.length > 0 ? (
         <div
           className="relative py-2"

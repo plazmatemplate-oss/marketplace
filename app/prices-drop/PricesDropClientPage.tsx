@@ -75,10 +75,9 @@ export default function PricesDropClientPage() {
 
         <div className="page-card">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="bg-theme-gray-100 h-80 rounded-md animate-pulse" />
-              ))}
+            <div className="py-16 flex flex-col justify-center items-center gap-3">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              <span className="text-theme-gray-500 font-medium text-sm">Loading price drops...</span>
             </div>
           ) : products.length === 0 ? (
             <div className="py-16 text-center text-theme-gray-500 font-medium">

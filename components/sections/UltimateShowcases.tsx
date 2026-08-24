@@ -6,6 +6,7 @@ import ProductCard from "@/components/common/ProductCard";
 import SectionTitle from "@/components/common/SectionTitle";
 import { useCategories } from "@/hooks/useCategories";
 import { useProducts } from "@/hooks/useProducts";
+import { Loader2 } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -176,8 +177,9 @@ export default function UltimateShowcases() {
         )}
 
         {isProductsLoading ? (
-          <div className="py-12 text-center text-theme-gray-500 font-medium">
-            Loading showcase templates...
+          <div className="py-16 flex flex-col items-center justify-center gap-3">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <span className="text-theme-gray-500 font-medium text-sm">Loading showcase templates...</span>
           </div>
         ) : productColumns.length > 0 ? (
           <div
