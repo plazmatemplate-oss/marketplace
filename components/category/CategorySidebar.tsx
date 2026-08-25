@@ -20,20 +20,22 @@ export default function CategorySidebar() {
   const { data: fetchedSubcategories } = useSubcategories();
 
   const categoriesList = (fetchedCategories && fetchedCategories.length > 0)
-    ? fetchedCategories.map((cat) => {
-        const subs = fetchedSubcategories
-          ? fetchedSubcategories.filter(
-              (sub) => sub.categoryId === cat._id || (typeof sub.categoryId === "object" && (sub.categoryId as any)._id === cat._id)
-            )
-          : [];
-        return {
-          id: cat._id,
-          name: cat.name,
-          slug: cat.slug,
-          subCategories: subs.map((s) => ({ name: s.name, slug: s.slug })),
-        };
-      })
-    : fallbackCategories;
+    ? fetchedCategories
+        .filter((cat) => cat.slug !== "custom-modules" && cat.slug !== "megashop-themes")
+        .map((cat) => {
+          const subs = fetchedSubcategories
+            ? fetchedSubcategories.filter(
+                (sub) => sub.categoryId === cat._id || (typeof sub.categoryId === "object" && (sub.categoryId as any)._id === cat._id)
+              )
+            : [];
+          return {
+            id: cat._id,
+            name: cat.name,
+            slug: cat.slug,
+            subCategories: subs.map((s) => ({ name: s.name, slug: s.slug })),
+          };
+        })
+    : fallbackCategories.filter((cat) => cat.slug !== "custom-modules" && cat.slug !== "megashop-themes");
 
   return (
     <Card className="flex flex-col overflow-hidden w-full p-0 gap-0">

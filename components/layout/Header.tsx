@@ -36,7 +36,9 @@ export default function Header() {
   const rawItems: CartItem[] = cart?.cartItems || cart?.items || [];
   const cartCount = rawItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const categoriesList = fetchedCategories && fetchedCategories.length > 0
-    ? fetchedCategories.map((c) => ({ name: c.name, slug: c.slug }))
+    ? fetchedCategories
+        .filter((c) => c.slug !== "custom-modules" && c.slug !== "megashop-themes")
+        .map((c) => ({ name: c.name, slug: c.slug }))
     : [];
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -118,17 +120,17 @@ export default function Header() {
                   <div className="group">
                     <div
                       className={cn(
-                        "px-6 py-3 text-[15px] font-semibold flex items-center justify-between transition-colors",
+                        "px-6 py-3 text-[15px] font-semibold flex items-center justify-between transition-colors cursor-pointer",
                         isEStoreMobileOpen ? "text-primary" : "text-theme-gray-800"
                       )}
+                      onClick={() => setIsEStoreMobileOpen(!isEStoreMobileOpen)}
                     >
-                      <Link href="/estore" className="flex-1 hover:text-primary">
+                      <span className="flex-1 hover:text-primary">
                         E-Store Themes
-                      </Link>
+                      </span>
                       <button
                         type="button"
                         className="p-2 -mr-2 cursor-pointer"
-                        onClick={() => setIsEStoreMobileOpen(!isEStoreMobileOpen)}
                       >
                         <svg className={cn("w-4 h-4 transition-transform duration-200", isEStoreMobileOpen ? "text-theme-gray-900 rotate-180" : "text-theme-gray-400 rotate-0")} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                       </button>
@@ -318,12 +320,11 @@ export default function Header() {
             <Link href="/megashop" className="text-[13px] font-medium text-theme-gray-600 hover:text-theme-gray-900 tracking-wide transition-colors">MegaShop Themes</Link>
 
             <div className="group relative py-3.5">
-              <Link
-                href="/estore"
-                className="text-[13px] font-medium text-theme-gray-600 group-hover:text-primary tracking-wide transition-colors outline-none flex items-center gap-1"
+              <span
+                className="text-[13px] font-medium text-theme-gray-600 group-hover:text-primary tracking-wide transition-colors outline-none flex items-center gap-1 cursor-pointer"
               >
                 E-Store Themes <svg className="w-3 h-3 text-theme-gray-400 group-hover:text-theme-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-              </Link>
+              </span>
 
               <div className="absolute top-full left-0 w-125 bg-white shadow-xl border-b-2 border-b-primary rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6 pt-5">
 

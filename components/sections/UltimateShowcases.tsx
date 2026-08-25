@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/carousel";
 
 export default function UltimateShowcases() {
-  const [activeTab, setActiveTab] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState<string>("");
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -25,30 +25,32 @@ export default function UltimateShowcases() {
   // 1. Fetch categories dynamically from API
   const { data: apiCategories, isLoading: isCategoriesLoading } = useCategories();
 
-  // Dynamic categories list built strictly from API response
+  // Dynamic categories list excluding Home, custom-modules, and megashop-themes
   const categoriesList = useMemo(() => {
     if (!apiCategories || apiCategories.length === 0) return [];
 
-    const mapped = apiCategories.map((cat) => ({
-      id: cat._id,
-      slug: cat.slug,
-      name: cat.name,
-      count: cat.itemCount || 0,
-    }));
-
-    const totalCount = mapped.reduce((acc, cat) => acc + (cat.count || 0), 0);
-
-    return [
-      { id: "all", slug: "all", name: "Home", count: totalCount },
-      ...mapped,
-    ];
+    return apiCategories
+      .filter((cat) => cat.slug !== "custom-modules" && cat.slug !== "megashop-themes")
+      .map((cat) => ({
+        id: cat._id,
+        slug: cat.slug,
+        name: cat.name,
+        count: cat.itemCount || 0,
+      }));
   }, [apiCategories]);
+
+  // Set default active tab to the 1st remaining category
+  useEffect(() => {
+    if (categoriesList.length > 0 && !activeTab) {
+      setActiveTab(categoriesList[0].id);
+    }
+  }, [categoriesList, activeTab]);
 
   // Determine selected category parameter for products API
   const selectedCategoryParam = useMemo(() => {
-    if (activeTab === "all" || activeTab === "home") return undefined;
-    return activeTab;
-  }, [activeTab]);
+    if (activeTab) return activeTab;
+    return categoriesList[0]?.id;
+  }, [activeTab, categoriesList]);
 
   // 2. Fetch products dynamically from API based on selected category tab
   const { data: apiProducts, isLoading: isProductsLoading } = useProducts({
