@@ -56,6 +56,23 @@ export default function BestSalesClientPage() {
       </div>
 
       <div className="page-overlap-container-tall">
+        <div className="mb-8 text-center md:text-left">
+          <SectionTitle
+            title="Best Sales"
+            align="left"
+            as="h1"
+            uppercase={false}
+            className="items-start! hidden md:flex"
+          />
+          <SectionTitle
+            title="Best Sales"
+            align="center"
+            as="h1"
+            uppercase={false}
+            className="md:hidden"
+          />
+        </div>
+
         <div className="page-card">
           {isLoading ? (
             <div className="py-16 flex flex-col justify-center items-center gap-3">
@@ -83,8 +100,9 @@ export default function BestSalesClientPage() {
                       oldPrice={formattedOldPrice}
                       image={item.images?.[0] || ""}
                       isNew={item.isNew}
-                      rating={item.rating || 5}
+                      rating={item.rating || 0}
                       sales={item.sales || 0}
+                      demoUrl={item.demoUrl}
                     />
                   );
                 })}
