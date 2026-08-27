@@ -100,8 +100,9 @@ export default function PricesDropClientPage() {
                       oldPrice={formattedOldPrice}
                       image={item.images?.[0] || ""}
                       isNew={item.isNew}
-                      rating={item.rating || 5}
+                      rating={item.rating || 0}
                       sales={item.sales || 0}
+                      demoUrl={item.demoUrl}
                     />
                   );
                 })}
