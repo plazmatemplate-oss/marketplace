@@ -7,6 +7,8 @@ import SectionTitle from "@/components/common/SectionTitle";
 import { Minus, Plus, Trash2, Loader2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart, useAddToCart, useUpdateCartItem, useRemoveFromCart } from "@/hooks/useCart";
+import { useCoupon } from "@/hooks/useCoupon";
+import CouponBox from "@/components/common/CouponBox";
 import { getImageUrl } from "@/lib/utils";
 import { toast } from "@/lib/toast";
 import type { CartItem } from "@/types/api";
@@ -52,6 +54,8 @@ export default function CartPage() {
     const price = typeof prod?.price === "number" ? prod.price : 0;
     return acc + price * (item.quantity || 1);
   }, 0);
+
+  const couponProps = useCoupon(subtotal);
 
   return (
     <div className="bg-white min-h-screen">
@@ -204,7 +208,7 @@ export default function CartPage() {
             </div>
 
             <div className="w-full lg:w-1/3">
-              <div className="bg-white p-6 sm:p-8 shadow-sm border border-theme-gray-100 rounded-lg flex flex-col gap-6 sticky top-32">
+              <div className="bg-white p-6 sm:p-8 shadow-sm border border-theme-gray-100 rounded-lg flex flex-col gap-5 sticky top-32">
                 <h2 className="text-[18px] font-bold text-theme-dark-blue border-b border-theme-gray-100 pb-4">Order Summary</h2>
                 
                 <div className="flex flex-col gap-3 text-[14.5px] text-theme-gray-600">
@@ -212,16 +216,25 @@ export default function CartPage() {
                     <span>Subtotal</span>
                     <span className="font-semibold text-theme-gray-800">€{subtotal.toFixed(2)}</span>
                   </div>
+
+                  {couponProps.appliedCoupon && (
+                    <div className="flex justify-between items-center text-emerald-600 font-semibold text-[14px]">
+                      <span>Discount ({couponProps.appliedCoupon.code})</span>
+                      <span>-€{couponProps.discountAmount.toFixed(2)}</span>
+                    </div>
+                  )}
                 </div>
+
+                <CouponBox {...couponProps} />
                 
-                <div className="border-t border-theme-gray-100 pt-4 mt-2">
+                <div className="pt-1">
                   <div className="flex justify-between items-center">
                     <span className="text-[16px] font-bold text-theme-dark-blue">Total</span>
-                    <span className="text-[20px] font-bold text-theme-pink">€{subtotal.toFixed(2)}</span>
+                    <span className="text-[22px] font-extrabold text-theme-pink">€{couponProps.finalTotal.toFixed(2)}</span>
                   </div>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-2">
                   <Link href="/checkout" className="block w-full">
                     <Button className="w-full h-12 text-[15px] font-bold tracking-wide uppercase bg-(image:--theme-background-gradiant) border-0 hover:opacity-90 shadow-md cursor-pointer">
                       Proceed to Checkout

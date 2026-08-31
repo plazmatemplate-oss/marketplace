@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import HeroSection from "@/components/sections/HeroSection";
 import FeaturesBanner from "@/components/sections/FeaturesBanner";
+import CouponDiscountBanner from "@/components/sections/CouponDiscountBanner";
 import UltimateShowcases from "@/components/sections/UltimateShowcases";
 import PromoBanner from "@/components/sections/PromoBanner";
 import ProductGridSection from "@/components/common/ProductGridSection";
@@ -25,6 +26,8 @@ export default function Home() {
       
       <FeaturesBanner />
       
+      <CouponDiscountBanner />
+
       <UltimateShowcases />
       
       <PromoBanner />

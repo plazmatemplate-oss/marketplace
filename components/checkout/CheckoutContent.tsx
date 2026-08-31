@@ -7,6 +7,8 @@ import CheckoutForm from "@/components/checkout/CheckoutForm";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
 import { useUserProfile } from "@/hooks/useAuth";
+import { useCoupon } from "@/hooks/useCoupon";
+import CouponBox from "@/components/common/CouponBox";
 import { getImageUrl } from "@/lib/utils";
 import type { CartItem } from "@/types/api";
 import { ShoppingBag, Loader2 } from "lucide-react";
@@ -23,6 +25,8 @@ export default function CheckoutContent() {
     const price = typeof prod?.price === "number" ? prod.price : 0;
     return acc + price * (item.quantity || 1);
   }, 0);
+
+  const couponProps = useCoupon(subtotal);
 
   if (!token) {
     return (
@@ -117,12 +121,21 @@ export default function CheckoutContent() {
               <span>Subtotal</span>
               <span className="font-semibold text-theme-gray-800">€{subtotal.toFixed(2)}</span>
             </div>
+
+            {couponProps.appliedCoupon && (
+              <div className="flex justify-between items-center text-emerald-600 font-semibold text-[14px]">
+                <span>Discount ({couponProps.appliedCoupon.code})</span>
+                <span>-€{couponProps.discountAmount.toFixed(2)}</span>
+              </div>
+            )}
           </div>
 
-          <div className="border-t border-theme-gray-100 pt-4">
+          <CouponBox {...couponProps} />
+
+          <div className="pt-1">
             <div className="flex justify-between items-center">
               <span className="text-[16px] font-bold text-theme-dark-blue">Total</span>
-              <span className="text-[20px] font-bold text-theme-pink">€{subtotal.toFixed(2)}</span>
+              <span className="text-[22px] font-extrabold text-theme-pink">€{couponProps.finalTotal.toFixed(2)}</span>
             </div>
           </div>
         </div>

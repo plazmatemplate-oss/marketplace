@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useUserProfile } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
+import { useCoupon } from '@/hooks/useCoupon';
 import { useCreateOrder } from '@/hooks/useOrders';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from '@/lib/toast';
@@ -40,6 +41,8 @@ export default function CheckoutForm() {
     const price = typeof prod?.price === "number" ? prod.price : 0;
     return acc + price * (item.quantity || 1);
   }, 0);
+
+  const { appliedCoupon, finalTotal } = useCoupon(subtotal);
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
@@ -90,7 +93,8 @@ export default function CheckoutForm() {
         lastName: data.lastName,
         email: data.email,
         paymentMethod: "Razorpay",
-        totalPrice: subtotal,
+        totalPrice: finalTotal,
+        couponCode: appliedCoupon?.code || undefined,
       };
 
       const createdOrder: any = await createOrderMutation.mutateAsync(orderPayload as any);
@@ -98,7 +102,7 @@ export default function CheckoutForm() {
       // Step 2: Create Razorpay Order API call with createdOrderId as receipt
       // POST /payment/razorpay-order
       const razorpayOrder = await createRazorpayOrderApi({
-        amount: subtotal,
+        amount: finalTotal,
         currency: "EUR",
         receipt: createdOrderId || "1",
       });
@@ -111,7 +115,7 @@ export default function CheckoutForm() {
 
       const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
       const razorpayOrderId = razorpayOrder?.id;
-      const razorpayAmount = razorpayOrder?.amount || Math.round(subtotal * 100);
+      const razorpayAmount = razorpayOrder?.amount || Math.round(finalTotal * 100);
 
       const options = {
         key: razorpayKey,
@@ -216,7 +220,7 @@ export default function CheckoutForm() {
             Processing...
           </>
         ) : (
-          "Pay with Razorpay"
+          `Pay €${finalTotal.toFixed(2)} with Razorpay`
         )}
       </Button>
     </form>
