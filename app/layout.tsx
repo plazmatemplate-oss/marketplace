@@ -57,7 +57,8 @@ export default function RootLayout({
       className={cn("antialiased font-sans", inter.variable)}
     >
       <head>
-        <meta name="google-adsense-account" content="ca-pub-3763297443777958" />
+        <meta name=“google-adsense-account” content=“ca-pub-8119333570872313">
+        <meta name="google-adsense-account" content="ca-pub-3763297443777958" /> 
       </head>
       <body className="flex flex-col min-h-screen">
         {/* Google Tag Manager (noscript) */}
@@ -87,10 +88,16 @@ export default function RootLayout({
 
         {/* Google AdSense */}
         <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8119333570872313"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3763297443777958"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        
 
         {/* Google Tag Manager */}
         <Script
