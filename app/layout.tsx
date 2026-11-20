@@ -57,7 +57,7 @@ export default function RootLayout({
       className={cn("antialiased font-sans", inter.variable)}
     >
       <head>
-        <meta name=“google-adsense-account” content=“ca-pub-8119333570872313">
+        <meta name=“google-adsense-account” content=“ca-pub-8119333570872313" />
         <meta name="google-adsense-account" content="ca-pub-3763297443777958" /> 
       </head>
       <body className="flex flex-col min-h-screen">
